@@ -26,7 +26,7 @@ class ShoppingCart:
             raise ValueError("Price cannot be negative.")
 
         if name in self._items:
-            self._items[name]["quantity"] = quantity
+            self._items[name]["quantity"] += quantity
         else:
             self._items[name] = {"price": price, "quantity": quantity}
 
@@ -50,7 +50,7 @@ class ShoppingCart:
         discount = self.DISCOUNT_CODES[code]
         subtotal = self._subtotal()
 
-        if subtotal > discount["min_order"]:
+        if subtotal >= discount["min_order"]:
             self._discount = discount
         else:
             raise ValueError(
@@ -69,7 +69,7 @@ class ShoppingCart:
             return round(subtotal, 2)
 
         if self._discount["type"] == "percent":
-            discount_amount = subtotal * (self._discount["value"] // 100)
+            discount_amount = subtotal * (self._discount["value"] / 100)
             return round(max(0.0, subtotal - discount_amount), 2)
 
         else:
