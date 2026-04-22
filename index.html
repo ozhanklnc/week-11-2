@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Week 12 — Shopping Cart CD</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem 4rem;
+    }
+    .badges { display: flex; gap: 8px; margin-bottom: 1.5rem; flex-wrap: wrap; justify-content: center; }
+    .badge { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; }
+    .b-blue   { background: #1e3a5f; color: #93c5fd; border: 1px solid #2563eb55; }
+    .b-green  { background: #14291d; color: #86efac; border: 1px solid #16a34a55; }
+    .b-purple { background: #2e1a4d; color: #c4b5fd; border: 1px solid #7c3aed55; }
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 700;
+      text-align: center;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.4rem;
+    }
+    .subtitle { color: #64748b; font-size: 0.95rem; text-align: center; margin-bottom: 2.5rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; width: 100%; max-width: 860px; margin-bottom: 1rem; }
+    .card { background: #1a1d27; border: 1px solid #2d3148; border-radius: 14px; padding: 1.4rem; }
+    .card-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #475569; margin-bottom: 0.6rem; }
+    .card-value { font-size: 1rem; font-weight: 500; color: #e2e8f0; line-height: 1.5; }
+    .team-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .team-list li { display: flex; align-items: center; gap: 8px; font-size: 0.95rem; color: #cbd5e1; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: #7c3aed; flex-shrink: 0; }
+    .fn-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .fn-item { background: #0f1117; border: 1px solid #2d3148; border-radius: 8px; padding: 10px 12px; }
+    .fn-name { font-family: 'Courier New', monospace; font-size: 0.9rem; color: #7dd3fc; font-weight: 600; }
+    .fn-desc { font-size: 0.78rem; color: #64748b; margin-top: 2px; }
+    .deploy-banner {
+      width: 100%; max-width: 860px;
+      background: #14291d;
+      border: 1px solid #16a34a55;
+      border-radius: 14px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 0.5rem;
+    }
+    .check { width: 32px; height: 32px; border-radius: 50%; background: #16a34a33; border: 1px solid #16a34a88; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
+    .deploy-text { font-size: 0.9rem; color: #86efac; }
+    .deploy-text strong { color: #4ade80; }
+    footer { margin-top: 3rem; font-size: 0.75rem; color: #334155; }
+  </style>
+</head>
+<body>
+  <div class="badges">
+    <span class="badge b-blue">COMP 3304</span>
+    <span class="badge b-green">Spring 2026</span>
+    <span class="badge b-purple">Week 12 — Lab</span>
+  </div>
+
+  <h1>Shopping Cart CI/CD</h1>
+  <p class="subtitle">Continuous Integration &amp; Deployment — GitHub Actions + Railway + Docker</p>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-label">Team Members</div>
+      <ul class="team-list">
+        <li><span class="dot"></span>Deniz Dost</li>
+        <li><span class="dot"></span>Bora Yıldız</li>
+        <li><span class="dot"></span>Özhan Kılınç</li>
+        <li><span class="dot"></span>Atilla Ergin</li>
+        <li><span class="dot"></span>Çağan Özdamar</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Project</div>
+      <div class="card-value" style="font-size:1.15rem; color:#a78bfa; margin-bottom:0.8rem;">Shopping Cart</div>
+      <div class="card-label" style="margin-top:0.5rem;">Repository</div>
+      <div class="card-value" style="font-size:0.85rem; color:#60a5fa;">github.com/ozhanklnc/week-11-2</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card" style="grid-column: 1 / -1;">
+      <div class="card-label">Functions Covered by Test Suite (28 tests)</div>
+      <ul class="fn-list" style="margin-top:0.75rem;">
+        <li class="fn-item">
+          <div class="fn-name">add_item()</div>
+          <div class="fn-desc">Adds items to the cart; accumulates quantity correctly with += instead of overwriting</div>
+        </li>
+        <li class="fn-item">
+          <div class="fn-name">get_total()</div>
+          <div class="fn-desc">Calculates total price using float division — fixed from integer division bug</div>
+        </li>
+        <li class="fn-item">
+          <div class="fn-name">apply_discount()</div>
+          <div class="fn-desc">Applies percentage discount; threshold check uses >= to include exact boundary values</div>
+        </li>
+        <li class="fn-item">
+          <div class="fn-name">get_item_count()</div>
+          <div class="fn-desc">Returns total quantity of all items in cart using sum() over item quantities</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="deploy-banner">
+    <div class="check">&#10003;</div>
+    <div class="deploy-text">
+      <strong>Automatically deployed via CD.</strong> Every successful merge to
+      <code style="background:#0f1117; padding:2px 6px; border-radius:4px; font-size:0.85rem;">main</code>
+      triggers the deploy job in GitHub Actions — no manual steps required.
+    </div>
+  </div>
+
+  <footer>COMP 3304 &middot; Fundamentals of Software Engineering &middot; Spring 2026</footer>
+</body>
+</html>
