@@ -1,0 +1,5 @@
+# Ignore everything in the directory
+*
+
+# Except the static folder
+!static/
