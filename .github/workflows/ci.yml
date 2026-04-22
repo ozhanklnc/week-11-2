@@ -28,3 +28,15 @@ jobs:
       - run: pip install coverage
       - run: python -m coverage run -m unittest test_shopping_cart
       - run: python -m coverage report --include=cart.py --fail-under=70
+ deploy:
+    needs: [test]
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to Railway
+        uses: bervProject/railway-deploy@main
+        with:
+          railway_token: ${{ secrets.RAILWAY_TOKEN }}
+          service: tournament-app
